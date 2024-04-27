@@ -8,9 +8,11 @@ import { ProductCategory } from '../common/product-category';
   providedIn: 'root',
 })
 export class ProductService {
-  private baseUrl = 'http://localhost:8080/api/products';
+  private baseUrl =
+    'https://ecommerce-spring-angular-production.up.railway.app/api/products';
 
-  private categoryUrl = 'http://localhost:8080/api/product-category';
+  private categoryUrl =
+    'https://ecommerce-spring-angular-production.up.railway.app/api/product-category';
   constructor(private httpClient: HttpClient) {}
 
   getProduct(theProductId: number): Observable<Product> {
