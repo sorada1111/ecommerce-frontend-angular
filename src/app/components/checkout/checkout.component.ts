@@ -9,6 +9,7 @@ import { SpFormService } from '../../services/sp-form.service';
 import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
 import { SpShopValidators } from 'src/app/validators/sp-shop-validators';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -28,10 +29,13 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private spFormService: SpFormService
+    private spFormService: SpFormService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
+    this.reviewCartDetails();
+
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
         firstName: new FormControl('', [
@@ -127,6 +131,16 @@ export class CheckoutComponent implements OnInit {
       console.log(`Retrived countries: ` + JSON.stringify(data));
       this.countries = data;
     });
+  }
+  reviewCartDetails() {
+    // subscribe to cartService.totalQuality
+    this.cartService.totalQuantity.subscribe(
+      (totalQuantity) => (this.totalQuantity = totalQuantity)
+    );
+    // subscribe to cartService.totalPrice
+    this.cartService.totalPrice.subscribe(
+      (totalPrice) => (this.totalPrice = totalPrice)
+    );
   }
   get firstName() {
     return this.checkoutFormGroup.get('customer.firstName');
