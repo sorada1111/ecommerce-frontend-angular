@@ -1,5 +1,3 @@
-# API and callback routes need to be handled by the server
 /api/*    /api/:splat    200
 /login/callback    /index.html    200
-# All other routes go to index.html for SPA handling
 /*    /index.html    200
